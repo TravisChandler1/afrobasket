@@ -2,7 +2,11 @@
   "name": "afrobasket-homepage",
   "version": "1.0.0",
   "description": "AFROBASKET homepage",
+  "homepage": "/",
   "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
