@@ -826,10 +826,9 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
       </section>
 
       {/* ── CTA ── */}
-      <section ref={ctaRef} style={{padding:"116px 28px",textAlign:"center",background:C.dark,position:"relative",overflow:"hidden"}}>
-        <div style={{...orb(720,720,"rgba(0,201,107,.1)"),top:"50%",left:"50%",transform:"translate(-50%,-50%)"}}/>
-        <div style={{...orb(420,420,"rgba(212,168,67,.07)"),top:"18%",right:"8%",animationDelay:"2s"}}/>
-        <div style={{position:"relative",...ap(ctaV)}}>
+      <section ref={ctaRef} style={{padding:"116px 28px",textAlign:"center",background:`url(/images/shop-bg.jpg) center/cover no-repeat, ${C.dark}`,position:"relative",overflow:"hidden"}}>
+        <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.75)",zIndex:0}}/>
+        <div style={{position:"relative",...ap(ctaV),zIndex:1}}>
           <div style={{width:86,height:86,background:"rgba(0,201,107,.12)",border:"1px solid rgba(0,201,107,.25)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 28px"}}>
             <Sparkles size={38} color={C.green} strokeWidth={1.5}/>
           </div>
