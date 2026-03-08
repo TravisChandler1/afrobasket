@@ -20,16 +20,16 @@ const C = {
 const foodImg = (id, w=400, h=400) =>
   `https://picsum.photos/seed/${id}/${w}/${h}`;
 
-/* Hero floating grocery images — picsum seeds chosen for African groceries */
+/* Hero floating grocery images - using uploaded local images */
 const FLOATERS = [
-  { id:"yam-tuber", w:180, h:180, x:4,  y:8,  anim:1, delay:0   },
-  { id:"plantain-ripe", w:145, h:145, x:83, y:6,  anim:2, delay:0.5 },
-  { id:"garri-cassava", w:170, h:170, x:14, y:60, anim:3, delay:0.2 },
-  { id:"egusi-melon", w:138, h:138, x:74, y:68, anim:1, delay:0.8 },
-  { id:"palm-oil-red", w:155, h:155, x:89, y:34, anim:2, delay:0.3 },
-  { id:"scotch-bonnet", w:128, h:128, x:1,  y:42, anim:3, delay:0.6 },
-  { id:"okra-fresh", w:142, h:142, x:54, y:14, anim:1, delay:1.0 },
-  { id:"crayfish-dried", w:122, h:122, x:38, y:76, anim:2, delay:0.4 },
+  { id:"hero1", w:180, h:180, x:4,  y:8,  anim:1, delay:0   },
+  { id:"hero2", w:145, h:145, x:83, y:6,  anim:2, delay:0.5 },
+  { id:"hero3", w:170, h:170, x:14, y:60, anim:3, delay:0.2 },
+  { id:"hero4", w:138, h:138, x:74, y:68, anim:1, delay:0.8 },
+  { id:"hero5", w:155, h:155, x:89, y:34, anim:2, delay:0.3 },
+  { id:"hero6", w:128, h:128, x:1,  y:42, anim:3, delay:0.6 },
+  { id:"hero7", w:142, h:142, x:54, y:14, anim:1, delay:1.0 },
+  { id:"hero8", w:122, h:122, x:38, y:76, anim:2, delay:0.4 },
 ];
 
 /* Product catalogue — picsum seeds for each */
@@ -417,16 +417,16 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
         <div style={{...orb(520,520,"rgba(255,154,60,.08)"),top:"14%",right:"-9%",animationDelay:"1.5s"}}/>
         <div style={{position:"absolute",inset:0,opacity:.025,backgroundImage:"linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)",backgroundSize:"60px 60px"}}/>
         <div style={{position:"absolute",bottom:0,left:0,right:0,height:200,background:`linear-gradient(transparent,${C.dark})`}}/>
-        <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.4)",zIndex:0}}/>
+        <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.65)",zIndex:0}}/>
 
         {/* Floating food images */}
         {FLOATERS.map((f,i)=>(
           <div key={i} style={{position:"absolute",left:`${f.x}%`,top:`${f.y}%`,pointerEvents:"none",animation:`float${f.anim} ${4+i*.5}s ease-in-out infinite ${f.delay}s`,zIndex:0}}>
             <img
-              src={`https://picsum.photos/seed/${f.id}/${f.w}/${f.h}`}
+              src={`/images/hero${i+1}.jpg`}
               alt=""
               width={f.w} height={f.h}
-              style={{display:"block",borderRadius:"50%",objectFit:"cover",opacity:.45,filter:"drop-shadow(0 12px 32px rgba(0,0,0,.85)) saturate(1.1) brightness(.8)"}}
+              style={{display:"block",borderRadius:"50%",objectFit:"cover",opacity:.35,filter:"drop-shadow(0 12px 32px rgba(0,0,0,.9)) saturate(1.05) brightness(.75)"}}
             />
           </div>
         ))}
