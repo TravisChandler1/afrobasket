@@ -20,16 +20,16 @@ const C = {
 const foodImg = (id, w=400, h=400) =>
   `https://picsum.photos/seed/${id}/${w}/${h}`;
 
-/* Hero floating food images — picsum seeds chosen for food-like colours */
+/* Hero floating grocery images - using uploaded local images */
 const FLOATERS = [
-  { id:"plantain22", w:180, h:180, x:4,  y:8,  anim:1, delay:0   },
-  { id:"pepper99",   w:145, h:145, x:83, y:6,  anim:2, delay:0.5 },
-  { id:"yam44",      w:170, h:170, x:14, y:60, anim:3, delay:0.2 },
-  { id:"spinach33",  w:138, h:138, x:74, y:68, anim:1, delay:0.8 },
-  { id:"food55",     w:155, h:155, x:89, y:34, anim:2, delay:0.3 },
-  { id:"fish77",     w:128, h:128, x:1,  y:42, anim:3, delay:0.6 },
-  { id:"veg66",      w:142, h:142, x:54, y:14, anim:1, delay:1.0 },
-  { id:"tom88",      w:122, h:122, x:38, y:76, anim:2, delay:0.4 },
+  { id:"hero1", w:180, h:180, x:4,  y:8,  anim:1, delay:0   },
+  { id:"hero2", w:145, h:145, x:83, y:6,  anim:2, delay:0.5 },
+  { id:"hero3", w:170, h:170, x:14, y:60, anim:3, delay:0.2 },
+  { id:"hero4", w:138, h:138, x:74, y:68, anim:1, delay:0.8 },
+  { id:"hero5", w:155, h:155, x:89, y:34, anim:2, delay:0.3 },
+  { id:"hero6", w:128, h:128, x:1,  y:42, anim:3, delay:0.6 },
+  { id:"hero7", w:142, h:142, x:54, y:14, anim:1, delay:1.0 },
+  { id:"hero8", w:122, h:122, x:38, y:76, anim:2, delay:0.4 },
 ];
 
 /* Product catalogue — picsum seeds for each */
@@ -236,7 +236,7 @@ function Cart({cart,open,onClose,onRemove,onQty}){
               <span style={{fontFamily:"'Outfit',sans-serif",fontWeight:600,fontSize:18,color:C.white}}>Subtotal</span>
               <span style={{fontFamily:"'Cormorant Garamond',serif",fontWeight:900,fontSize:26,color:C.green}}>${total.toFixed(2)}</span>
             </div>
-            <Btn disabled={total<40} style={{width:"100%",justifyContent:"center"}}>Checkout <ChevronRight size={18}/></Btn>
+            <Btn disabled={total<40} style={{width:"100%",justifyContent:"center",fontSize:16,padding:"14px 28px"}}>Checkout <ChevronRight size={18}/></Btn>
           </div>
         )}
       </div>
@@ -278,7 +278,7 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
         </button>
       </nav>
 
-      <div style={{maxWidth:1220,margin:"0 auto",padding:"48px 28px 100px"}}>
+      <div style={{maxWidth:1220,margin:"0 auto",padding:"48px 20px 100px"}}>
         {/* heading */}
         <div style={{marginBottom:34,position:"relative"}}>
           <div style={{...orb(400,400,"rgba(0,201,107,.07)"),top:-120,right:-60}}/>
@@ -291,7 +291,7 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
         </div>
 
         {/* search */}
-        <div style={{position:"relative",maxWidth:560,marginBottom:24}}>
+        <div style={{position:"relative",maxWidth:560,marginBottom:24,padding:"0 10px"}}>
           <Search size={19} color={C.gray} style={{position:"absolute",left:20,top:"50%",transform:"translateY(-50%)",pointerEvents:"none"}}/>
           <input value={search} onChange={e=>sSearch(e.target.value)} placeholder="Search products, e.g. plantain, palm oil…"
             style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1.5px solid ${search?"rgba(0,201,107,.55)":"rgba(255,255,255,.1)"}`,borderRadius:50,padding:"15px 52px 15px 54px",color:C.white,fontFamily:"'Outfit',sans-serif",fontSize:16,outline:"none",transition:"all .3s"}}/>
@@ -299,7 +299,7 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
         </div>
 
         {/* pills */}
-        <div style={{display:"flex",gap:9,flexWrap:"wrap",marginBottom:36,paddingBottom:30,borderBottom:`1px solid ${C.border}`}}>
+        <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:30,paddingBottom:26,borderBottom:`1px solid ${C.border}`,padding:"0 10px"}}>
           {CATS.map(c=>{
             const active=cat===c; const meta=CAT_META[c];
             return <button key={c} onClick={()=>sCat(c)} style={{padding:"10px 22px",borderRadius:50,border:`1.5px solid ${active?C.green:"rgba(255,255,255,.1)"}`,background:active?C.green:"rgba(255,255,255,.04)",color:active?C.dark:C.gray,fontFamily:"'Outfit',sans-serif",fontWeight:600,fontSize:14,cursor:"pointer",transition:"all .22s ease",boxShadow:active?"0 0 22px rgba(0,201,107,.32)":"none",whiteSpace:"nowrap",display:"flex",alignItems:"center",gap:7}}>
@@ -344,7 +344,7 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
                        <span style={{background:"rgba(0,201,107,.12)",color:C.green,fontSize:13,fontWeight:700,padding:"4px 12px",borderRadius:20,fontFamily:"'Outfit',sans-serif",border:"1px solid rgba(0,201,107,.22)"}}>{items.length}</span>
                        <div style={{flex:1,height:1,background:"rgba(255,255,255,.06)"}}/>
                      </div>
-                     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(215px,1fr))",gap:20}}>
+                     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(180px,1fr))",gap:16}}>
                        {items.map(p=><PCard key={p.id} p={p} onAdd={onAdd} onQV={sQv}/>)}
                      </div>
                    </div>;
@@ -377,63 +377,6 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
   const [delRef,delV]=useInView(.1);
   const [abtRef,abtV]=useInView(.1);
   const [ctaRef,ctaV]=useInView(.1);
-  const [textIndex,sTextIndex]=useState(0);
-  const [displayText,sDisplayText]=useState("");
-  const [isScrambling,sIsScrambling]=useState(false);
-
-  const captivatingTexts = [
-    { text: "Right here in Canada 🇨🇦", flag: "🇨🇦" },
-    { text: "Fresh & Ready to Order", flag: null },
-    { text: "Authentic Quality Guaranteed", flag: null },
-    { text: "From Our Family to Yours", flag: null },
-    { text: "Your Taste of Home", flag: null },
-    { text: "Shop Local, Eat Global", flag: null },
-    { text: "Canada's African Market", flag: "🇨🇦" }
-  ];
-
-  const scrambleText = (newText, callback) => {
-    const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
-    const iterations = 15;
-    let iteration = 0;
-    
-    sIsScrambling(true);
-    
-    const scrambleInterval = setInterval(() => {
-      if (iteration >= iterations) {
-        clearInterval(scrambleInterval);
-        sDisplayText(newText);
-        sIsScrambling(false);
-        if (callback) callback();
-        return;
-      }
-      
-      const scrambled = newText.split('').map(char => {
-        if (Math.random() > 0.5 && char !== ' ') {
-          return chars[Math.floor(Math.random() * chars.length)];
-        }
-        return char;
-      }).join('');
-      
-      sDisplayText(scrambled);
-      iteration++;
-    }, 50);
-  };
-
-  useEffect(() => {
-    const currentText = captivatingTexts[textIndex];
-    sDisplayText(currentText.text);
-    
-    const interval = setInterval(() => {
-      sTextIndex(prev => {
-        const nextIndex = (prev + 1) % captivatingTexts.length;
-        const nextText = captivatingTexts[nextIndex];
-        scrambleText(nextText.text);
-        return nextIndex;
-      });
-    }, 4000);
-    
-    return () => clearInterval(interval);
-  }, []);
   useEffect(()=>{const fn=()=>sSc(window.scrollY>60);window.addEventListener("scroll",fn);return()=>window.removeEventListener("scroll",fn);},[]);
   const go=id=>{document.getElementById(id)?.scrollIntoView({behavior:"smooth"});sMob(false);};
   const NAV=[{l:"Shop",id:"preview"},{l:"Categories",id:"cats"},{l:"Delivery",id:"delivery"},{l:"About",id:"about"}];
@@ -442,7 +385,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
     <div style={{background:C.dark,color:C.white}}>
 
       {/* NAV */}
-      <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:900,background:scrolled?"rgba(7,7,9,.97)":"transparent",backdropFilter:scrolled?"blur(22px)":"none",borderBottom:scrolled?`1px solid ${C.border}`:"none",height:74,padding:"0 30px",display:"flex",alignItems:"center",justifyContent:"space-between",transition:"all .4s ease"}}>
+      <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:900,background:scrolled?"rgba(7,7,9,.97)":"transparent",backdropFilter:scrolled?"blur(22px)":"none",borderBottom:scrolled?`1px solid ${C.border}`:"none",height:74,padding:"0 20px",display:"flex",alignItems:"center",justifyContent:"space-between",transition:"all .4s ease"}}>
         <div style={{display:"flex",alignItems:"center",gap:11,cursor:"pointer"}} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>
           <div style={{width:42,height:42,background:"rgba(0,201,107,.15)",border:"1px solid rgba(0,201,107,.3)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center"}}>
             <ShoppingCart size={19} color={C.green}/>
@@ -474,42 +417,43 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
         <div style={{...orb(520,520,"rgba(255,154,60,.08)"),top:"14%",right:"-9%",animationDelay:"1.5s"}}/>
         <div style={{position:"absolute",inset:0,opacity:.025,backgroundImage:"linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)",backgroundSize:"60px 60px"}}/>
         <div style={{position:"absolute",bottom:0,left:0,right:0,height:200,background:`linear-gradient(transparent,${C.dark})`}}/>
+        <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.65)",zIndex:0}}/>
 
         {/* Floating food images */}
         {FLOATERS.map((f,i)=>(
           <div key={i} style={{position:"absolute",left:`${f.x}%`,top:`${f.y}%`,pointerEvents:"none",animation:`float${f.anim} ${4+i*.5}s ease-in-out infinite ${f.delay}s`,zIndex:0}}>
             <img
-              src={`https://picsum.photos/seed/${f.id}/${f.w}/${f.h}`}
+              src={`/images/hero${i+1}.jpg`}
               alt=""
               width={f.w} height={f.h}
-              style={{display:"block",borderRadius:"50%",objectFit:"cover",opacity:.65,filter:"drop-shadow(0 12px 32px rgba(0,0,0,.65)) saturate(1.25) brightness(.92)"}}
+              style={{display:"block",borderRadius:"50%",objectFit:"cover",opacity:.35,filter:"drop-shadow(0 12px 32px rgba(0,0,0,.9)) saturate(1.05) brightness(.75)"}}
             />
           </div>
         ))}
 
-        <div style={{maxWidth:940,margin:"0 auto",padding:"138px 28px 96px",textAlign:"center",position:"relative",zIndex:1}}>
+        <div style={{maxWidth:940,margin:"0 auto",padding:"138px 20px 96px",textAlign:"center",position:"relative",zIndex:1}}>
           <div style={{animation:"fadeUp .9s cubic-bezier(.22,1,.36,1) .2s both"}}>
             <span style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(0,201,107,.12)",color:C.green,fontSize:14,fontWeight:700,padding:"8px 22px",borderRadius:20,letterSpacing:1.4,fontFamily:"'Outfit',sans-serif",marginBottom:26,textTransform:"uppercase",border:"1px solid rgba(0,201,107,.3)"}}>
               <MapPin size={15}/> Delivering Across Barrie &amp; Beyond
             </span>
             <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(48px,8vw,90px)",fontWeight:900,lineHeight:1.04,marginTop:6}}>
               <span style={heroTextGlow}>African Groceries</span><br/>
-              <span style={gold}>{displayText}</span>
+              <span style={gold}>Delivered to Your Door</span>
             </h1>
           </div>
           <p style={{animation:"fadeUp .9s cubic-bezier(.22,1,.36,1) .5s both",fontSize:"clamp(18px,2.5vw,22px)",color:"rgba(240,237,230,.58)",marginTop:28,lineHeight:1.85,maxWidth:600,margin:"28px auto 0"}}>
             Shop authentic African groceries online — delivered to Barrie, Innisfil, Bradford &amp; Orillia.
           </p>
-          <div style={{animation:"fadeUp .9s cubic-bezier(.22,1,.36,1) .8s both",display:"flex",gap:18,justifyContent:"center",marginTop:48,flexWrap:"wrap"}}>
-            <Btn onClick={()=>onGoShop()} style={{fontSize:18,padding:"18px 44px"}}><ShoppingCart size={21}/> Shop Groceries</Btn>
-            <button onClick={()=>go("delivery")} style={{background:"transparent",color:C.green,border:"1.5px solid rgba(0,201,107,.5)",padding:"16px 30px",borderRadius:50,fontWeight:600,fontSize:17,cursor:"pointer",fontFamily:"'Outfit',sans-serif",transition:"all .3s ease",display:"inline-flex",alignItems:"center",gap:9}}>
+          <div style={{animation:"fadeUp .9s cubic-bezier(.22,1,.36,1) .8s both",display:"flex",gap:14,justifyContent:"center",marginTop:40,flexWrap:"wrap",flexDirection:"column",alignItems:"center"}}>
+            <Btn onClick={()=>onGoShop()} style={{fontSize:16,padding:"14px 32px",width:"100%",maxWidth:280}}><ShoppingCart size={18}/> Shop Groceries</Btn>
+            <button onClick={()=>go("delivery")} style={{background:"transparent",color:C.green,border:"1.5px solid rgba(0,201,107,.5)",padding:"14px 24px",borderRadius:50,fontWeight:600,fontSize:15,cursor:"pointer",fontFamily:"'Outfit',sans-serif",transition:"all .3s ease",display:"inline-flex",alignItems:"center",gap:8,width:"100%",maxWidth:280}}>
               <MapPin size={19}/> Delivery Areas
             </button>
           </div>
-          <div style={{display:"flex",justifyContent:"center",marginTop:74}}>
+          <div style={{display:"flex",justifyContent:"center",marginTop:60,flexDirection:"column",gap:20}}>
             {[["50+","Products"],["4","Delivery Zones"],["$40","Min. Order"]].map(([num,lbl],i)=>(
-              <div key={lbl} style={{textAlign:"center",padding:"24px 44px",borderRight:i<2?`1px solid rgba(255,255,255,.08)`:"none"}}>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:44,fontWeight:900,...gold}}>{num}</div>
+              <div key={lbl} style={{textAlign:"center",padding:"20px 30px",borderRight:"none",borderBottom:i<2?`1px solid rgba(255,255,255,.08)`:"none"}}>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:900,...gold}}>{num}</div>
                 <div style={{color:"rgba(240,237,230,.38)",fontSize:13,marginTop:6,letterSpacing:1.1,textTransform:"uppercase",fontFamily:"'Outfit',sans-serif"}}>{lbl}</div>
               </div>
             ))}
@@ -518,7 +462,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
       </section>
 
       {/* ── CATEGORIES ── */}
-      <section id="cats" ref={catRef} style={{padding:"96px 28px",background:C.s1,position:"relative",overflow:"hidden"}}>
+      <section id="cats" ref={catRef} style={{padding:"96px 20px",background:C.s1,position:"relative",overflow:"hidden"}}>
         <div style={{...orb(420,420,"rgba(0,201,107,.06)"),top:"50%",right:"-5%",transform:"translateY(-50%))"}}/>
         <div style={{maxWidth:1120,margin:"0 auto",position:"relative"}}>
           <div style={{textAlign:"center",marginBottom:56,...ap(catV)}}>
@@ -986,7 +930,21 @@ export default function App(){
         @keyframes notifIn{0%{transform:translateY(-22px);opacity:0}15%{transform:translateY(0);opacity:1}85%{transform:translateY(0);opacity:1}100%{transform:translateY(-22px);opacity:0}}
         @keyframes kenburns{0%{transform:scale(1) translate(0,0)}50%{transform:scale(1.12) translate(-2%,-1%)}100%{transform:scale(1.06) translate(2%,1%)}}
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#111318}::-webkit-scrollbar-thumb{background:#00C96B;border-radius:2px}
-        @media(max-width:768px){.hide-mobile{display:none!important}.show-mobile{display:flex!important}.grid-2{grid-template-columns:repeat(2,1fr)!important}.grid-1{grid-template-columns:1fr!important}}
+        @media(max-width:768px){
+          .hide-mobile{display:none!important}
+          .show-mobile{display:flex!important}
+          .grid-2{grid-template-columns:repeat(2,1fr)!important}
+          .grid-1{grid-template-columns:1fr!important}
+          /* Mobile hero optimizations */
+          section{padding-left:0!important;padding-right:0!important}
+          /* Mobile floating images - smaller and repositioned */
+          img{max-width:100vw!important}
+        }
+        @media(max-width:480px){
+          /* Extra small mobile optimizations */
+          body{margin:0;padding:0}
+          section{padding-left:0!important;padding-right:0!important}
+        }
         @media(min-width:769px){.show-mobile{display:none!important}}
       `}</style>
 
