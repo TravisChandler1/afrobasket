@@ -450,10 +450,10 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
               <MapPin size={19}/> Delivery Areas
             </button>
           </div>
-          <div style={{display:"flex",justifyContent:"center",marginTop:60,flexDirection:"column",gap:20}}>
+          <div style={{display:"flex",justifyContent:"center",marginTop:74}}>
             {[["50+","Products"],["4","Delivery Zones"],["$40","Min. Order"]].map(([num,lbl],i)=>(
-              <div key={lbl} style={{textAlign:"center",padding:"20px 30px",borderRight:"none",borderBottom:i<2?`1px solid rgba(255,255,255,.08)`:"none"}}>
-                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:900,...gold}}>{num}</div>
+              <div key={lbl} style={{textAlign:"center",padding:"24px 44px",borderRight:i<2?`1px solid rgba(255,255,255,.08)`:"none"}}>
+                <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:44,fontWeight:900,...gold}}>{num}</div>
                 <div style={{color:"rgba(240,237,230,.38)",fontSize:13,marginTop:6,letterSpacing:1.1,textTransform:"uppercase",fontFamily:"'Outfit',sans-serif"}}>{lbl}</div>
               </div>
             ))}
