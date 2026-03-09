@@ -437,7 +437,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
               <MapPin size={15}/> Delivering Across Barrie &amp; Beyond
             </span>
             <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(48px,8vw,90px)",fontWeight:900,lineHeight:1.04,marginTop:6}}>
-              <span style={heroTextGlow}>African Groceries</span><br/>
+              <span style={{color:C.white}}>African Groceries</span><br/>
               <span style={gold}>Delivered to Your Door</span>
             </h1>
           </div>
@@ -751,25 +751,55 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
       </section>
 
       {/* ── DELIVERY ── */}
-      <section id="delivery" ref={delRef} style={{padding:"96px 28px",background:C.dark,position:"relative",overflow:"hidden"}}>
-        <div style={{...orb(640,640,"rgba(0,201,107,.07)"),top:"50%",left:"50%",transform:"translate(-50%,-50%)"}}/>
-        <div style={{maxWidth:1020,margin:"0 auto",position:"relative"}}>
+      <section id="delivery" ref={delRef} style={{padding:"96px 28px",background:"#f8f9fa",position:"relative",overflow:"hidden"}}>
+        <div style={{maxWidth:1020,margin:"0 auto",position:"relative",zIndex:1}}>
           <div style={{textAlign:"center",marginBottom:64,...ap(delV)}}>
-            <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(32px,5vw,54px)",fontWeight:900,color:C.white}}>Delivery <span style={gold}>Areas</span></h2>
-            <p style={{fontFamily:"'Outfit',sans-serif",color:C.gray,marginTop:14,fontSize:18}}>Minimum order $40 CAD — delivered on scheduled days.</p>
+            <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(32px,5vw,54px)",fontWeight:900,color:"#1a1a1a"}}>Delivery <span style={gold}>Areas</span></h2>
+            <div style={{display:"flex",justifyContent:"center",gap:14,marginTop:20,flexWrap:"wrap"}}>
+              {/* Green pill - Minimum order */}
+              <span style={{
+                display:"inline-flex",alignItems:"center",gap:8,
+                background:"linear-gradient(135deg, rgba(0,201,107,0.12) 0%, rgba(0,201,107,0.08) 100%)",
+                color:"#00C96B",fontSize:14,padding:"10px 18px",borderRadius:50,
+                fontFamily:"'Outfit',sans-serif",fontWeight:600,
+                border:"1px solid rgba(0,201,107,0.35)",
+                boxShadow:"0 2px 12px rgba(0,201,107,0.15)"
+              }}>
+                <span style={{
+                  width:8,height:8,borderRadius:"50%",background:"#00C96B",
+                  boxShadow:"0 0 8px #00C96B, 0 0 14px rgba(0,201,107,0.6)"
+                }}/>
+                Minimum order $40 CAD
+              </span>
+              {/* Gold pill - Scheduled days */}
+              <span style={{
+                display:"inline-flex",alignItems:"center",gap:8,
+                background:"linear-gradient(135deg, rgba(212,168,67,0.12) 0%, rgba(255,184,48,0.06) 100%)",
+                color:"#b8922e",fontSize:14,padding:"10px 18px",borderRadius:50,
+                fontFamily:"'Outfit',sans-serif",fontWeight:600,
+                border:"1px solid rgba(212,168,67,0.35)",
+                boxShadow:"0 2px 12px rgba(212,168,67,0.15)"
+              }}>
+                <span style={{
+                  width:8,height:8,borderRadius:"50%",background:"#D4A843",
+                  boxShadow:"0 0 8px #D4A843, 0 0 14px rgba(212,168,67,0.5)"
+                }}/>
+                Delivered on scheduled days
+              </span>
+            </div>
           </div>
           <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:22}} className="grid-1">
             {ZONES.map((z,i)=>(
-              <div key={z.city} className="delivery-card" style={{...ap(delV,i*.1),background:C.s2,borderRadius:22,padding:"32px 30px",border:`1px solid ${C.border}`,transition:"all .35s ease"}}
-                onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-7px)";e.currentTarget.style.boxShadow="0 26px 55px rgba(0,0,0,.55)";}}
-                onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow="";}}>
+              <div key={z.city} className="delivery-card" style={{...ap(delV,i*.1),background:"#ffffff",borderRadius:22,padding:"32px 30px",border:`1px solid rgba(0,0,0,0.08)`,transition:"all .35s ease",boxShadow:"0 4px 20px rgba(0,0,0,0.06)"}}
+                onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-7px)";e.currentTarget.style.boxShadow="0 26px 55px rgba(0,0,0,.12)";}}
+                onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow="0 4px 20px rgba(0,0,0,0.06)";}}>
                 <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",marginBottom:20}}>
                   <div>
                     <div style={{display:"flex",alignItems:"center",gap:11,marginBottom:10}}>
                       <div style={{width:38,height:38,borderRadius:"50%",background:"rgba(0,201,107,.12)",border:"1px solid rgba(0,201,107,.25)",display:"flex",alignItems:"center",justifyContent:"center"}}>
                         <MapPin size={18} color={C.green}/>
                       </div>
-                      <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:30,fontWeight:700,color:C.white}}>{z.city}</h3>
+                      <h3 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:30,fontWeight:700,color:"#1a1a1a"}}>{z.city}</h3>
                     </div>
                     {z.free&&<span style={{display:"inline-flex",alignItems:"center",gap:7,background:"rgba(0,201,107,.12)",color:C.green,fontSize:13,padding:"5px 14px",borderRadius:20,fontFamily:"'Outfit',sans-serif",fontWeight:700,border:"1px solid rgba(0,201,107,.3)"}}>
                       <CheckCircle size={13}/> {z.free}
@@ -777,12 +807,12 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
                   </div>
                   <div style={{textAlign:"right"}}>
                     <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:36,fontWeight:900,...gold}}>${z.fee}</div>
-                    <div style={{fontFamily:"'Outfit',sans-serif",color:C.gray,fontSize:14}}>delivery fee</div>
+                    <div style={{fontFamily:"'Outfit',sans-serif",color:"#6b7280",fontSize:14}}>delivery fee</div>
                   </div>
                 </div>
-                <div style={{display:"flex",alignItems:"center",gap:9,paddingTop:20,borderTop:`1px solid ${C.border}`}}>
-                  <Clock size={16} color={C.gray}/>
-                  <span style={{fontFamily:"'Outfit',sans-serif",color:C.gray,fontSize:16}}>Every <strong style={{color:C.white}}>{z.day}</strong></span>
+                <div style={{display:"flex",alignItems:"center",gap:9,paddingTop:20,borderTop:`1px solid rgba(0,0,0,0.08)`}}>
+                  <Clock size={16} color="#6b7280"/>
+                  <span style={{fontFamily:"'Outfit',sans-serif",color:"#6b7280",fontSize:16}}>Every <strong style={{color:"#1a1a1a"}}>{z.day}</strong></span>
                 </div>
               </div>
             ))}
