@@ -130,7 +130,7 @@ function PCard({p,onAdd,onQV}){
   return(
     <div onMouseEnter={()=>sH(true)} onMouseLeave={()=>sH(false)}
       style={{background:C.s1,borderRadius:20,overflow:"hidden",border:`1px solid ${hov?C.bg:C.border}`,transition:"all .3s ease",transform:hov?"translateY(-8px)":"none",boxShadow:hov?"0 28px 55px rgba(0,0,0,.55),0 0 35px rgba(0,201,107,.12)":"none"}}>
-      <div style={{height:190,position:"relative",overflow:"hidden"}}>
+      <div className="pcard-img" style={{height:190,position:"relative",overflow:"hidden"}}>
         <PImg seed={p.seed} alt={p.name} h={190} style={{transform:hov?"scale(1.09)":"scale(1)",transition:"transform .45s ease"}}/>
         <div style={{position:"absolute",top:12,left:12}}><Badge>{p.cat}</Badge></div>
         {hov&&<div style={{position:"absolute",inset:0,background:"rgba(4,12,8,.82)",display:"flex",alignItems:"center",justifyContent:"center",backdropFilter:"blur(5px)"}}>
@@ -164,8 +164,8 @@ function QVModal({p,onClose,onAdd}){
   const [q,sQ]=useState(1);
   return(
     <div onClick={onClose} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",zIndex:1001,display:"flex",alignItems:"flex-end",justifyContent:"center",backdropFilter:"blur(10px)",animation:"fadeIn .3s ease"}}>
-      <div onClick={e=>e.stopPropagation()} style={{background:C.s1,border:`1px solid ${C.border}`,width:"min(540px,100vw)",borderRadius:"28px 28px 0 0",padding:38,animation:"slideUp .4s cubic-bezier(.22,1,.36,1)",maxHeight:"92vh",overflowY:"auto"}}>
-        <div style={{borderRadius:18,overflow:"hidden",marginBottom:26,height:260}}>
+      <div onClick={e=>e.stopPropagation()} className="qv-modal" style={{background:C.s1,border:`1px solid ${C.border}`,width:"min(540px,100vw)",borderRadius:"28px 28px 0 0",padding:38,animation:"slideUp .4s cubic-bezier(.22,1,.36,1)",maxHeight:"92vh",overflowY:"auto"}}>
+        <div className="qv-modal-img" style={{borderRadius:18,overflow:"hidden",marginBottom:26,height:260}}>
           <PImg seed={p.seed} alt={p.name} h={260}/>
         </div>
         <Badge>{p.cat}</Badge>
@@ -262,23 +262,23 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
   return(
     <div style={{minHeight:"100vh",background:C.dark}}>
       {/* nav */}
-      <nav style={{position:"sticky",top:0,zIndex:900,background:"rgba(7,7,9,.97)",backdropFilter:"blur(22px)",borderBottom:`1px solid ${C.border}`,padding:"0 28px",height:70,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-        <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:C.gray,fontFamily:"'Outfit',sans-serif",fontWeight:500,fontSize:15,display:"flex",alignItems:"center",gap:8}}>
-          <ArrowLeft size={19}/> Home
+      <nav className="shop-nav" style={{position:"sticky",top:0,zIndex:900,background:"rgba(7,7,9,.97)",backdropFilter:"blur(22px)",borderBottom:`1px solid ${C.border}`,padding:"0 20px",height:70,display:"flex",alignItems:"center",justifyContent:"space-between",gap:8}}>
+        <button onClick={onBack} style={{background:"none",border:"none",cursor:"pointer",color:C.gray,fontFamily:"'Outfit',sans-serif",fontWeight:500,fontSize:15,display:"flex",alignItems:"center",gap:6,flexShrink:0}}>
+          <ArrowLeft size={19}/><span className="cart-btn-text"> Home</span>
         </button>
-        <div style={{display:"flex",alignItems:"center",gap:9}}>
-          <div style={{width:36,height:36,background:"rgba(0,201,107,.15)",border:"1px solid rgba(0,201,107,.3)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <ShoppingCart size={17} color={C.green}/>
+        <div style={{display:"flex",alignItems:"center",gap:8,flex:1,justifyContent:"center",minWidth:0}}>
+          <div style={{width:32,height:32,flexShrink:0,background:"rgba(0,201,107,.15)",border:"1px solid rgba(0,201,107,.3)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+            <ShoppingCart size={15} color={C.green}/>
           </div>
-          <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:21,fontWeight:700,...logoGlow}}>AfroBasket Market</span>
+          <span className="nav-logo-text" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:20,fontWeight:700,...logoGlow,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>AfroBasket Market</span>
         </div>
-        <button onClick={onCartOpen} style={{position:"relative",background:C.green,border:"none",borderRadius:50,padding:"10px 22px",cursor:"pointer",color:C.dark,fontFamily:"'Outfit',sans-serif",fontWeight:700,fontSize:15,display:"flex",alignItems:"center",gap:8}}>
-          <ShoppingCart size={17}/> Cart
+        <button onClick={onCartOpen} style={{position:"relative",background:C.green,border:"none",borderRadius:50,padding:"10px 16px",cursor:"pointer",color:C.dark,fontFamily:"'Outfit',sans-serif",fontWeight:700,fontSize:15,display:"flex",alignItems:"center",gap:6,flexShrink:0}}>
+          <ShoppingCart size={17}/><span className="cart-btn-text"> Cart</span>
           {count>0&&<span style={{position:"absolute",top:-7,right:-7,background:C.orange,color:"#fff",borderRadius:"50%",width:20,height:20,fontSize:11,fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center"}}>{count}</span>}
         </button>
       </nav>
 
-      <div style={{maxWidth:1220,margin:"0 auto",padding:"48px 20px 100px"}}>
+      <div style={{maxWidth:1220,margin:"0 auto",padding:"48px 16px 100px"}}>
         {/* heading */}
         <div style={{marginBottom:34,position:"relative"}}>
           <div style={{...orb(400,400,"rgba(0,201,107,.07)"),top:-120,right:-60}}/>
@@ -291,15 +291,15 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
         </div>
 
         {/* search */}
-        <div style={{position:"relative",maxWidth:560,marginBottom:24,padding:"0 10px"}}>
+        <div className="search-wrap" style={{position:"relative",maxWidth:560,marginBottom:24,padding:"0 10px"}}>
           <Search size={19} color={C.gray} style={{position:"absolute",left:20,top:"50%",transform:"translateY(-50%)",pointerEvents:"none"}}/>
           <input value={search} onChange={e=>sSearch(e.target.value)} placeholder="Search products, e.g. plantain, palm oil…"
-            style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1.5px solid ${search?"rgba(0,201,107,.55)":"rgba(255,255,255,.1)"}`,borderRadius:50,padding:"15px 52px 15px 54px",color:C.white,fontFamily:"'Outfit',sans-serif",fontSize:16,outline:"none",transition:"all .3s"}}/>
+            style={{width:"100%",background:"rgba(255,255,255,.05)",border:`1.5px solid ${search?"rgba(0,201,107,.55)":"rgba(255,255,255,.1)"}`,borderRadius:50,padding:"15px 52px 15px 54px",color:C.white,fontFamily:"'Outfit',sans-serif",fontSize:16,outline:"none",transition:"all .3s",boxSizing:"border-box"}}/>
           {search&&<button onClick={()=>sSearch("")} style={{position:"absolute",right:18,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",color:C.gray,cursor:"pointer",display:"flex"}}><X size={18}/></button>}
         </div>
 
         {/* pills */}
-        <div style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:30,paddingBottom:26,borderBottom:`1px solid ${C.border}`,padding:"0 10px"}}>
+        <div className="cat-pills" style={{display:"flex",gap:8,flexWrap:"wrap",marginBottom:30,paddingBottom:26,borderBottom:`1px solid ${C.border}`,padding:"0 10px"}}>
           {CATS.map(c=>{
             const active=cat===c; const meta=CAT_META[c];
             return <button key={c} onClick={()=>sCat(c)} style={{padding:"10px 22px",borderRadius:50,border:`1.5px solid ${active?C.green:"rgba(255,255,255,.1)"}`,background:active?C.green:"rgba(255,255,255,.04)",color:active?C.dark:C.gray,fontFamily:"'Outfit',sans-serif",fontWeight:600,fontSize:14,cursor:"pointer",transition:"all .22s ease",boxShadow:active?"0 0 22px rgba(0,201,107,.32)":"none",whiteSpace:"nowrap",display:"flex",alignItems:"center",gap:7}}>
@@ -344,7 +344,7 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
                        <span style={{background:"rgba(0,201,107,.12)",color:C.green,fontSize:13,fontWeight:700,padding:"4px 12px",borderRadius:20,fontFamily:"'Outfit',sans-serif",border:"1px solid rgba(0,201,107,.22)"}}>{items.length}</span>
                        <div style={{flex:1,height:1,background:"rgba(255,255,255,.06)"}}/>
                      </div>
-                     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(180px,1fr))",gap:16}}>
+                     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(150px,1fr))",gap:14}}>
                        {items.map(p=><PCard key={p.id} p={p} onAdd={onAdd} onQV={sQv}/>)}
                      </div>
                    </div>;
@@ -353,7 +353,7 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
              </div>
             :<div>
                <p style={{fontFamily:"'Outfit',sans-serif",color:C.gray,fontSize:16,marginBottom:24}}>{filtered.length} result{filtered.length!==1?"s":""}{cat!=="All"?` in ${cat}`:""}</p>
-               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(215px,1fr))",gap:20}}>
+               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(160px,1fr))",gap:16}}>
                  {filtered.map(p=><PCard key={p.id} p={p} onAdd={onAdd} onQV={sQv}/>)}
                </div>
              </div>
@@ -385,25 +385,25 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
     <div style={{background:C.dark,color:C.white}}>
 
       {/* NAV */}
-      <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:900,background:scrolled?"rgba(7,7,9,.97)":"transparent",backdropFilter:scrolled?"blur(22px)":"none",borderBottom:scrolled?`1px solid ${C.border}`:"none",height:74,padding:"0 20px",display:"flex",alignItems:"center",justifyContent:"space-between",transition:"all .4s ease"}}>
-        <div style={{display:"flex",alignItems:"center",gap:11,cursor:"pointer"}} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>
-          <div style={{width:42,height:42,background:"rgba(0,201,107,.15)",border:"1px solid rgba(0,201,107,.3)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-            <ShoppingCart size={19} color={C.green}/>
+      <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:900,background:scrolled?"rgba(7,7,9,.97)":"transparent",backdropFilter:scrolled?"blur(22px)":"none",borderBottom:scrolled?`1px solid ${C.border}`:"none",height:74,padding:"0 16px",display:"flex",alignItems:"center",justifyContent:"space-between",transition:"all .4s ease"}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",minWidth:0,flex:1}} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>
+          <div style={{width:38,height:38,flexShrink:0,background:"rgba(0,201,107,.15)",border:"1px solid rgba(0,201,107,.3)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+            <ShoppingCart size={17} color={C.green}/>
           </div>
-          <span style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:700,...logoGlow}}>AfroBasket Market</span>
+          <span className="nav-logo-text" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:700,...logoGlow,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>AfroBasket Market</span>
         </div>
         <div style={{display:"flex",gap:34}} className="hide-mobile">
           {NAV.map(({l,id})=>(
-            <span key={id} onClick={()=>go(id)} style={{fontFamily:"'Outfit',sans-serif",fontWeight:500,color:"rgba(240,237,230,.7)",fontSize:16,cursor:"pointer",transition:"color .3s"}}
+            <span key={id} onClick={()=>go(id)} style={{fontFamily:"'Outfit',sans-serif",fontWeight:500,color:"rgba(240,237,230,.7)",fontSize:16,cursor:"pointer",transition:"color .3s",whiteSpace:"nowrap"}}
               onMouseEnter={e=>e.target.style.color=C.green} onMouseLeave={e=>e.target.style.color="rgba(240,237,230,.7)"}>{l}</span>
           ))}
         </div>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <button onClick={onCartOpen} style={{position:"relative",background:C.green,border:"none",borderRadius:50,padding:"10px 22px",cursor:"pointer",color:C.dark,fontFamily:"'Outfit',sans-serif",fontWeight:700,fontSize:15,display:"flex",alignItems:"center",gap:8}}>
-            <ShoppingCart size={17}/> Cart
+        <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
+          <button onClick={onCartOpen} style={{position:"relative",background:C.green,border:"none",borderRadius:50,padding:"10px 16px",cursor:"pointer",color:C.dark,fontFamily:"'Outfit',sans-serif",fontWeight:700,fontSize:15,display:"flex",alignItems:"center",gap:6}}>
+            <ShoppingCart size={17}/><span className="cart-btn-text"> Cart</span>
             {count>0&&<span style={{position:"absolute",top:-7,right:-7,background:C.orange,color:"#fff",borderRadius:"50%",width:20,height:20,fontSize:11,fontWeight:800,display:"flex",alignItems:"center",justifyContent:"center"}}>{count}</span>}
           </button>
-          <button className="show-mobile" onClick={()=>sMob(v=>!v)} style={{background:"none",border:"none",cursor:"pointer",color:C.white,display:"flex"}}><Menu size={28}/></button>
+          <button className="show-mobile" onClick={()=>sMob(v=>!v)} style={{background:"none",border:"none",cursor:"pointer",color:C.white,display:"flex",padding:"4px"}}><Menu size={26}/></button>
         </div>
       </nav>
 
@@ -419,9 +419,9 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
         <div style={{position:"absolute",bottom:0,left:0,right:0,height:200,background:`linear-gradient(transparent,${C.dark})`}}/>
         <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.65)",zIndex:0}}/>
 
-        {/* Floating food images */}
+        {/* Floating food images - hidden on mobile via CSS */}
         {FLOATERS.map((f,i)=>(
-          <div key={i} style={{position:"absolute",left:`${f.x}%`,top:`${f.y}%`,pointerEvents:"none",animation:`float${f.anim} ${4+i*.5}s ease-in-out infinite ${f.delay}s`,zIndex:0}}>
+          <div key={i} className="hide-mobile" style={{position:"absolute",left:`${f.x}%`,top:`${f.y}%`,pointerEvents:"none",animation:`float${f.anim} ${4+i*.5}s ease-in-out infinite ${f.delay}s`,zIndex:0}}>
             <img
               src={`/images/hero${i+1}.jpg`}
               alt=""
@@ -431,7 +431,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
           </div>
         ))}
 
-        <div style={{maxWidth:940,margin:"0 auto",padding:"138px 20px 96px",textAlign:"center",position:"relative",zIndex:1}}>
+        <div className="hero-content" style={{maxWidth:940,margin:"0 auto",padding:"138px 20px 96px",textAlign:"center",position:"relative",zIndex:1}}>
           <div style={{animation:"fadeUp .9s cubic-bezier(.22,1,.36,1) .2s both"}}>
             <span style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(0,201,107,.12)",color:C.green,fontSize:14,fontWeight:700,padding:"8px 22px",borderRadius:20,letterSpacing:1.4,fontFamily:"'Outfit',sans-serif",marginBottom:26,textTransform:"uppercase",border:"1px solid rgba(0,201,107,.3)"}}>
               <MapPin size={15}/> Delivering Across Barrie &amp; Beyond
@@ -450,9 +450,9 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
               <MapPin size={19}/> Delivery Areas
             </button>
           </div>
-          <div style={{display:"flex",justifyContent:"center",marginTop:74}}>
+          <div className="hero-stats" style={{display:"flex",justifyContent:"center",marginTop:74}}>
             {[["50+","Products"],["4","Delivery Zones"],["$40","Min. Order"]].map(([num,lbl],i)=>(
-              <div key={lbl} style={{textAlign:"center",padding:"24px 44px",borderRight:i<2?`1px solid rgba(255,255,255,.08)`:"none"}}>
+              <div className="hero-stat" key={lbl} style={{textAlign:"center",padding:"24px 44px",borderRight:i<2?`1px solid rgba(255,255,255,.08)`:"none"}}>
                 <div style={{fontFamily:"'Cormorant Garamond',serif",fontSize:44,fontWeight:900,...gold}}>{num}</div>
                 <div style={{color:"rgba(240,237,230,.38)",fontSize:13,marginTop:6,letterSpacing:1.1,textTransform:"uppercase",fontFamily:"'Outfit',sans-serif"}}>{lbl}</div>
               </div>
@@ -508,7 +508,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
             <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(32px,5vw,54px)",fontWeight:900,color:C.white}}>Popular <span style={{color:C.green}}>African Groceries</span></h2>
             <p style={{fontFamily:"'Outfit',sans-serif",color:C.gray,marginTop:14,fontSize:18}}>A taste of what we carry — fresh, authentic, sourced with care</p>
           </div>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:22}} className="grid-2">
+          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:22}} className="grid-2 preview-grid">
             {PRODUCTS.slice(0,4).map((p,i)=><div key={p.id} style={ap(prodV,i*.1)}><PCard p={p} onAdd={onAdd} onQV={sQv}/></div>)}
           </div>
           <div style={{textAlign:"center",marginTop:60,...ap(prodV,.4)}}>
@@ -760,7 +760,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
           </div>
           <div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:22}} className="grid-1">
             {ZONES.map((z,i)=>(
-              <div key={z.city} style={{...ap(delV,i*.1),background:C.s2,borderRadius:22,padding:"32px 30px",border:`1px solid ${C.border}`,transition:"all .35s ease"}}
+              <div key={z.city} className="delivery-card" style={{...ap(delV,i*.1),background:C.s2,borderRadius:22,padding:"32px 30px",border:`1px solid ${C.border}`,transition:"all .35s ease"}}
                 onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-7px)";e.currentTarget.style.boxShadow="0 26px 55px rgba(0,0,0,.55)";}}
                 onMouseLeave={e=>{e.currentTarget.style.transform="";e.currentTarget.style.boxShadow="";}}>
                 <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",marginBottom:20}}>
@@ -799,7 +799,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
         <div style={{...orb(420,420,"rgba(255,154,60,.06)"),bottom:0,right:0}}/>
         <div style={{maxWidth:1020,margin:"0 auto",display:"grid",gridTemplateColumns:"1fr 1fr",gap:70,alignItems:"center",position:"relative"}} className="grid-1">
           <div style={ap(abtV)}>
-            <div style={{borderRadius:26,overflow:"hidden",height:400,position:"relative",border:`1px solid ${C.border}`}}>
+            <div className="about-img" style={{borderRadius:26,overflow:"hidden",height:400,position:"relative",border:`1px solid ${C.border}`}}>
               <img src={`https://picsum.photos/seed/africafood/700/500`} alt="African food"
                 onError={e=>{e.target.style.display="none";}}
                 style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
@@ -826,7 +826,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
       </section>
 
       {/* ── CTA ── */}
-      <section ref={ctaRef} style={{padding:"116px 28px",textAlign:"center",background:`url(/images/shop-bg.jpg) center/cover no-repeat, ${C.dark}`,position:"relative",overflow:"hidden"}}>
+      <section ref={ctaRef} className="cta-section" style={{padding:"116px 28px",textAlign:"center",background:`url(/images/shop-bg.jpg) center/cover no-repeat, ${C.dark}`,position:"relative",overflow:"hidden"}}>
         <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.75)",zIndex:0}}/>
         <div style={{position:"relative",...ap(ctaV),zIndex:1}}>
           <div style={{width:86,height:86,background:"rgba(0,201,107,.12)",border:"1px solid rgba(0,201,107,.25)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 28px"}}>
@@ -843,9 +843,9 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
       </section>
 
       {/* ── FOOTER ── */}
-      <footer style={{background:"#040406",color:C.white,padding:"68px 28px 40px",borderTop:`1px solid ${C.border}`}}>
+      <footer style={{background:"#040406",color:C.white,padding:"68px 20px 40px",borderTop:`1px solid ${C.border}`}}>
         <div style={{maxWidth:1120,margin:"0 auto"}}>
-          <div style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr",gap:46,marginBottom:56}} className="grid-2">
+          <div style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr 1fr",gap:46,marginBottom:56}} className="footer-grid">
             <div>
               <div style={{display:"flex",alignItems:"center",gap:11,marginBottom:20}}>
                 <div style={{width:38,height:38,background:"rgba(0,201,107,.12)",border:"1px solid rgba(0,201,107,.25)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center"}}>
@@ -882,9 +882,9 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
               </div>
             ))}
           </div>
-          <div style={{borderTop:`1px solid rgba(255,255,255,.06)`,paddingTop:28,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:16}}>
-            <p style={{fontFamily:"'Outfit',sans-serif",color:"rgba(240,237,230,.2)",fontSize:14}}>© 2025 AfroBasket Market. All rights reserved. Barrie, Ontario, Canada.</p>
-            <p style={{fontFamily:"'Outfit',sans-serif",color:"rgba(240,237,230,.2)",fontSize:14}}>Made with ❤️ for the African community in Canada</p>
+          <div style={{borderTop:`1px solid rgba(255,255,255,.06)`,paddingTop:28,display:"flex",justifyContent:"space-between",flexWrap:"wrap",gap:12}}>
+            <p style={{fontFamily:"'Outfit',sans-serif",color:"rgba(240,237,230,.2)",fontSize:13}}>© 2025 AfroBasket Market. All rights reserved. Barrie, Ontario, Canada.</p>
+            <p style={{fontFamily:"'Outfit',sans-serif",color:"rgba(240,237,230,.2)",fontSize:13}}>Made with ❤️ for the African community in Canada</p>
           </div>
         </div>
       </footer>
@@ -934,20 +934,60 @@ export default function App(){
           .show-mobile{display:flex!important}
           .grid-2{grid-template-columns:repeat(2,1fr)!important}
           .grid-1{grid-template-columns:1fr!important}
-          /* Mobile hero optimizations */
-          section{padding-left:0!important;padding-right:0!important}
+          /* Mobile section padding */
+          section{padding-left:16px!important;padding-right:16px!important}
           /* Mobile floating images - smaller and repositioned */
-          img{max-width:100vw!important}
+          img{max-width:100%!important}
+          /* Nav adjustments */
+          .nav-logo-text{font-size:17px!important}
+          /* Hero stats */
+          .hero-stats{flex-direction:column!important;gap:0!important}
+          .hero-stat{padding:16px 24px!important;border-right:none!important;border-bottom:1px solid rgba(255,255,255,.08)!important}
+          .hero-stat:last-child{border-bottom:none!important}
+          /* Footer grid */
+          .footer-grid{grid-template-columns:1fr!important;gap:32px!important}
+          /* About section image */
+          .about-img{height:260px!important}
+          /* Search bar */
+          .search-wrap{padding:0!important;max-width:100%!important}
+          /* Cart button text */
+          .cart-btn-text{display:none!important}
+          /* Product card image */
+          .pcard-img{height:160px!important}
+          /* QV modal */
+          .qv-modal{padding:24px!important}
+          .qv-modal-img{height:200px!important}
+          /* Shop nav */
+          .shop-nav{padding:0 16px!important}
+          /* Category pills */
+          .cat-pills{padding:0!important}
+          /* Delivery cards */
+          .delivery-card{padding:22px 18px!important}
+          /* How it works */
+          .how-grid{grid-template-columns:1fr!important}
+          /* CTA section */
+          .cta-section{padding:72px 16px!important}
+          /* Preview grid - 2 cols on tablet */
+          .preview-grid{grid-template-columns:repeat(2,1fr)!important}
+          /* Hero content padding */
+          .hero-content{padding:110px 16px 72px!important}
+          /* Notification position */
+          .notif-toast{right:12px!important;left:12px!important;width:auto!important}
         }
         @media(max-width:480px){
           /* Extra small mobile optimizations */
           body{margin:0;padding:0}
-          section{padding-left:0!important;padding-right:0!important}
+          section{padding-left:12px!important;padding-right:12px!important}
+          .grid-2{grid-template-columns:1fr!important}
+          .preview-grid{grid-template-columns:1fr!important}
+          .hero-stat{padding:12px 16px!important}
+          /* Smaller font for logo on very small screens */
+          .nav-logo-text{font-size:15px!important}
         }
         @media(min-width:769px){.show-mobile{display:none!important}}
       `}</style>
 
-      {notif&&<div style={{position:"fixed",top:82,right:22,background:`linear-gradient(135deg,#00C96B,#009950)`,color:"#070709",padding:"14px 24px",borderRadius:50,fontFamily:"'Outfit',sans-serif",fontWeight:700,fontSize:15,zIndex:2000,animation:"notifIn 2.5s ease forwards",boxShadow:"0 0 44px rgba(0,201,107,.55)",display:"flex",alignItems:"center",gap:9}}>
+      {notif&&<div className="notif-toast" style={{position:"fixed",top:82,right:22,background:`linear-gradient(135deg,#00C96B,#009950)`,color:"#070709",padding:"14px 24px",borderRadius:50,fontFamily:"'Outfit',sans-serif",fontWeight:700,fontSize:15,zIndex:2000,animation:"notifIn 2.5s ease forwards",boxShadow:"0 0 44px rgba(0,201,107,.55)",display:"flex",alignItems:"center",gap:9,maxWidth:"calc(100vw - 32px)"}}>
         <CheckCircle size={17}/> {notif}
       </div>}
 
