@@ -281,7 +281,7 @@ function ShopPage({cart,onAdd,onCartOpen,onBack,initCat="All"}){
       <div style={{maxWidth:1220,margin:"0 auto",padding:"48px 16px 100px"}}>
         {/* heading */}
         <div style={{marginBottom:34,position:"relative"}}>
-          <div style={{...orb(400,400,"rgba(0,201,107,.07)"),top:-120,right:-60}}/>
+          <div style={{...orb(400,400,"rgba(0,201,107,.07)"),top:-100,right:-40}}/>
           <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(38px,5.5vw,60px)",fontWeight:900,color:C.white,marginBottom:10,position:"relative"}}>
             All <span style={gold}>Groceries</span>
           </h1>
@@ -413,8 +413,8 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
 
       {/* ── HERO ── */}
       <section id="hero" ref={heroRef} style={{minHeight:"100vh",position:"relative",overflow:"hidden",background:C.dark,display:"flex",alignItems:"center"}}>
-        <div style={{...orb(650,650,"rgba(0,201,107,.11)"),top:"4%",left:"-13%"}}/>
-        <div style={{...orb(520,520,"rgba(255,154,60,.08)"),top:"14%",right:"-9%",animationDelay:"1.5s"}}/>
+        <div style={{...orb(650,650,"rgba(0,201,107,.11)"),top:"4%",left:"-5%"}}/>
+        <div style={{...orb(520,520,"rgba(255,154,60,.08)"),top:"14%",right:"-2%",animationDelay:"1.5s"}}/>
         <div style={{position:"absolute",inset:0,opacity:.025,backgroundImage:"linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)",backgroundSize:"60px 60px"}}/>
         <div style={{position:"absolute",bottom:0,left:0,right:0,height:200,background:`linear-gradient(transparent,${C.dark})`}}/>
         <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.65)",zIndex:0}}/>
@@ -463,7 +463,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
 
       {/* ── CATEGORIES ── */}
       <section id="cats" ref={catRef} style={{padding:"96px 20px",background:C.s1,position:"relative",overflow:"hidden"}}>
-        <div style={{...orb(420,420,"rgba(0,201,107,.06)"),top:"50%",right:"-5%",transform:"translateY(-50%))"}}/>
+        <div style={{...orb(420,420,"rgba(0,201,107,.06)"),top:"50%",right:"0%",transform:"translateY(-50%)"}}/>
         <div style={{maxWidth:1120,margin:"0 auto",position:"relative"}}>
           <div style={{textAlign:"center",marginBottom:56,...ap(catV)}}>
             <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(32px,5vw,54px)",fontWeight:900,color:C.white}}>Shop By <span style={{color:C.green}}>Category</span></h2>
@@ -502,7 +502,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
           {/* Dark overlay */}
           <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.88)"}}/>
         </div>
-        <div style={{...orb(520,520,"rgba(255,154,60,.05)"),top:"28%",left:"-9%",animationDelay:"1s",zIndex:1}}/>
+        <div style={{...orb(520,520,"rgba(255,154,60,.05)"),top:"28%",left:"0%",animationDelay:"1s",zIndex:1}}/>
         <div style={{maxWidth:1120,margin:"0 auto",position:"relative",zIndex:1}}>
           <div style={{textAlign:"center",marginBottom:56,...ap(prodV)}}>
             <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(32px,5vw,54px)",fontWeight:900,color:C.white}}>Popular <span style={{color:C.green}}>African Groceries</span></h2>
@@ -521,7 +521,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
 
       {/* ── HOW IT WORKS ── */}
       <section ref={howRef} style={{padding:"96px 28px",background:C.s1,position:"relative",overflow:"hidden"}}>
-        <div style={{...orb(360,360,"rgba(212,168,67,.06)"),bottom:0,right:"10%"}}/>
+        <div style={{...orb(360,360,"rgba(212,168,67,.06)"),bottom:0,right:"5%"}}/>
         <div style={{maxWidth:940,margin:"0 auto",position:"relative"}}>
           <div style={{textAlign:"center",marginBottom:64,...ap(howV)}}>
             <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(32px,5vw,54px)",fontWeight:900,color:C.white}}>How <span style={{color:C.green}}>It Works</span></h2>
@@ -826,7 +826,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
 
       {/* ── ABOUT ── */}
       <section id="about" ref={abtRef} style={{padding:"96px 28px",background:C.s1,position:"relative",overflow:"hidden"}}>
-        <div style={{...orb(420,420,"rgba(255,154,60,.06)"),bottom:0,right:0}}/>
+        <div style={{...orb(420,420,"rgba(255,154,60,.06)"),bottom:0,right:"-5%"}}/>
         <div style={{maxWidth:1020,margin:"0 auto",display:"grid",gridTemplateColumns:"1fr 1fr",gap:70,alignItems:"center",position:"relative"}} className="grid-1">
           <div style={ap(abtV)}>
             <div className="about-img" style={{borderRadius:26,overflow:"hidden",height:400,position:"relative",border:`1px solid ${C.border}`}}>
