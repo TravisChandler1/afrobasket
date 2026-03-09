@@ -385,14 +385,14 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
     <div style={{background:C.dark,color:C.white}}>
 
       {/* NAV */}
-      <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:900,background:scrolled?"rgba(7,7,9,.97)":"transparent",backdropFilter:scrolled?"blur(22px)":"none",borderBottom:scrolled?`1px solid ${C.border}`:"none",height:74,padding:"0 16px",display:"flex",alignItems:"center",justifyContent:"space-between",transition:"all .4s ease"}}>
-        <div style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",minWidth:0,flex:1}} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>
+      <nav style={{position:"fixed",top:0,left:0,right:0,zIndex:900,background:scrolled?"rgba(7,7,9,.97)":"transparent",backdropFilter:scrolled?"blur(22px)":"none",borderBottom:scrolled?`1px solid ${C.border}`:"none",height:74,padding:"0 16px",display:"flex",alignItems:"center",justifyContent:"space-between",transition:"all .4s ease",gap:20}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",minWidth:0,flexShrink:0}} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>
           <div style={{width:38,height:38,flexShrink:0,background:"rgba(0,201,107,.15)",border:"1px solid rgba(0,201,107,.3)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center"}}>
             <ShoppingCart size={17} color={C.green}/>
           </div>
-          <span className="nav-logo-text" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:700,...logoGlow,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>AfroBasket Market</span>
+          <span className="nav-logo-text" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:700,...logoGlow,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",display:"none"}}>AfroBasket Market</span>
         </div>
-        <div style={{display:"flex",gap:34}} className="hide-mobile">
+        <div style={{display:"flex",gap:34,flex:1,justifyContent:"center"}} className="hide-mobile">
           {NAV.map(({l,id})=>(
             <span key={id} onClick={()=>go(id)} style={{fontFamily:"'Outfit',sans-serif",fontWeight:500,color:"rgba(240,237,230,.7)",fontSize:16,cursor:"pointer",transition:"color .3s",whiteSpace:"nowrap"}}
               onMouseEnter={e=>e.target.style.color=C.green} onMouseLeave={e=>e.target.style.color="rgba(240,237,230,.7)"}>{l}</span>
