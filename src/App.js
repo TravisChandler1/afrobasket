@@ -390,7 +390,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
           <div style={{width:38,height:38,flexShrink:0,background:"rgba(0,201,107,.15)",border:"1px solid rgba(0,201,107,.3)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center"}}>
             <ShoppingCart size={17} color={C.green}/>
           </div>
-          <span className="nav-logo-text" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:700,...logoGlow,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",display:"none"}}>AfroBasket Market</span>
+          <span className="nav-logo-text" style={{fontFamily:"'Cormorant Garamond',serif",fontSize:22,fontWeight:700,...logoGlow,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>AfroBasket Market</span>
         </div>
         <div style={{display:"flex",gap:34,flex:1,justifyContent:"center"}} className="hide-mobile">
           {NAV.map(({l,id})=>(
@@ -419,9 +419,9 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
         <div style={{position:"absolute",bottom:0,left:0,right:0,height:200,background:`linear-gradient(transparent,${C.dark})`}}/>
         <div style={{position:"absolute",inset:0,background:"rgba(7,7,9,0.65)",zIndex:0}}/>
 
-        {/* Floating food images - hidden on mobile via CSS */}
+        {/* Floating food images */}
         {FLOATERS.map((f,i)=>(
-          <div key={i} className="hide-mobile" style={{position:"absolute",left:`${f.x}%`,top:`${f.y}%`,pointerEvents:"none",animation:`float${f.anim} ${4+i*.5}s ease-in-out infinite ${f.delay}s`,zIndex:0}}>
+          <div key={i} style={{position:"absolute",left:`${f.x}%`,top:`${f.y}%`,pointerEvents:"none",animation:`float${f.anim} ${4+i*.5}s ease-in-out infinite ${f.delay}s`,zIndex:0}}>
             <img
               src={`/images/hero${i+1}.jpg`}
               alt=""
