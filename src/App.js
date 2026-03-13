@@ -3,10 +3,12 @@ import {
   ShoppingCart, MapPin, Search, X, Plus, Minus, ChevronRight,
   Truck, Package, Clock, ArrowLeft, Menu, Leaf, Flame,
   UtensilsCrossed, Salad, Coffee, Cookie, Wheat,
-  CheckCircle, Info, Instagram, Mail, Sparkles
+  CheckCircle, Info, Instagram, Mail, Sparkles, Settings
 } from "lucide-react";
 import StripeCheckout from "./components/StripeCheckout";
 import CheckoutSuccess from "./components/CheckoutSuccess";
+import AdminDashboard from "./components/AdminDashboard";
+import AdminLogin from "./components/AdminLogin";
 
 /* ── COLOUR TOKENS ─────────────────────────────────────────────────────────── */
 const C = {
@@ -965,6 +967,9 @@ export default function App(){
   const [notif,sN]=useState(null);
   const [checkoutPage, setCheckoutPage] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
+  const [adminMode, setAdminMode] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const [adminCode, setAdminCode] = useState('');
 
   const addToCart=(p,qty=1)=>{
     sCart(prev=>{const ex=prev.find(i=>i.id===p.id);if(ex)return prev.map(i=>i.id===p.id?{...i,qty:i.qty+qty}:i);return[...prev,{...p,qty}];});
@@ -1088,8 +1093,46 @@ export default function App(){
       
       {/* Checkout Success Page */}
       {orderComplete && (
-        <CheckoutSuccess />
+        <CheckoutSuccess onContinue={goHome} />
       )}
+      
+      {/* Admin Login Modal */}
+      {showAdminLogin && (
+        <AdminLogin 
+          onClose={() => setShowAdminLogin(false)} 
+          onLogin={(code) => {
+            setAdminCode(code);
+            setAdminMode(true);
+            setShowAdminLogin(false);
+          }} 
+        />
+      )}
+      
+      {/* Admin Dashboard */}
+      {adminMode && (
+        <AdminDashboard 
+          adminCode={adminCode}
+          onClose={() => setAdminMode(false)} 
+        />
+      )}
+      
+      {/* Admin Link in Footer */}
+      <button 
+        onClick={() => setShowAdminLogin(true)}
+        style={{
+          position: 'fixed',
+          bottom: '10px',
+          right: '10px',
+          background: 'transparent',
+          border: 'none',
+          color: '#333',
+          opacity: 0.3,
+          fontSize: '10px',
+          cursor: 'pointer',
+        }}
+      >
+        Admin
+      </button>
     </div>
   );
 }

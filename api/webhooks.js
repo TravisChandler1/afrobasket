@@ -1,5 +1,8 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
+// Simple in-memory order storage (for demo - use database in production)
+const orders = [];
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -25,26 +28,64 @@ module.exports = async (req, res) => {
     case 'checkout.session.completed': {
       const session = event.data.object;
       
-      // Order completed - you can:
-      // 1. Send confirmation email
-      // 2. Update database with order status
-      // 3. Send notification to admin
-      
-      console.log('Payment successful for session:', session.id);
-      console.log('Customer email:', session.customer_email);
-      console.log('Amount total:', session.amount_total);
-      
       // Parse metadata for order details
+      let orderItems = [];
       if (session.metadata && session.metadata.order_items) {
-        const orderItems = JSON.parse(session.metadata.order_items);
-        console.log('Order items:', orderItems);
+        orderItems = JSON.parse(session.metadata.order_items);
       }
       
-      // TODO: Add your own logic here (database updates, emails, etc.)
-      // Example:
-      // await sendOrderConfirmationEmail(session.customer_email, session);
-      // await updateOrderStatus(session.metadata.orderId, 'paid');
+      // Create order object
+      const order = {
+        orderId: session.id.slice(-8).toUpperCase(),
+        stripeSessionId: session.id,
+        customerEmail: session.customer_email,
+        customerName: session.customer_details?.name || '',
+        customerPhone: session.customer_details?.phone || '',
+        shippingAddress: session.customer_details?.address?.line1 + ', ' + 
+                          session.customer_details?.address?.city + ', ' + 
+                          session.customer_details?.address?.postal_code + ', ' + 
+                          session.customer_details?.address?.country || '',
+        items: orderItems,
+        total: session.amount_total / 100,
+        status: 'pending',
+        date: new Date().toISOString(),
+      };
       
+      // Store order (in production, save to database)
+      orders.push(order);
+      console.log('Order stored:', order.orderId);
+      
+      // Send confirmation email to customer
+      try {
+        await fetch(process.env.API_URL + '/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'order_confirmation',
+            order: order
+          })
+        });
+        console.log('Confirmation email sent to:', order.customerEmail);
+      } catch (emailErr) {
+        console.error('Failed to send confirmation email:', emailErr);
+      }
+      
+      // Send notification to admin
+      try {
+        await fetch(process.env.API_URL + '/api/send-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'admin_notification',
+            order: order
+          })
+        });
+        console.log('Admin notification sent');
+      } catch (emailErr) {
+        console.error('Failed to send admin notification:', emailErr);
+      }
+      
+      console.log('Payment successful for session:', session.id);
       break;
     }
     
@@ -66,4 +107,15 @@ module.exports = async (req, res) => {
 
   // Return 200 to acknowledge receipt
   res.status(200).json({ received: true });
+};
+
+// Export orders for admin API
+module.exports.getOrders = () => orders;
+module.exports.updateOrderStatus = (orderId, status) => {
+  const order = orders.find(o => o.orderId === orderId);
+  if (order) {
+    order.status = status;
+    return order;
+  }
+  return null;
 };
