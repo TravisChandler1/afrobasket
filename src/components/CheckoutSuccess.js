@@ -1,9 +1,14 @@
 import React from 'react';
 import { CheckCircle, Home, Package } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 
-const CheckoutSuccess = () => {
-  const navigate = useNavigate();
+const CheckoutSuccess = ({ onContinue }) => {
+  const handleContinue = () => {
+    if (onContinue) {
+      onContinue();
+    } else {
+      window.location.href = '/';
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -29,7 +34,7 @@ const CheckoutSuccess = () => {
         
         <div style={styles.actions}>
           <button 
-            onClick={() => navigate('/')}
+            onClick={handleContinue}
             style={styles.homeButton}
           >
             <Home size={18} />
