@@ -5,6 +5,8 @@ import {
   UtensilsCrossed, Salad, Coffee, Cookie, Wheat,
   CheckCircle, Info, Instagram, Mail, Sparkles
 } from "lucide-react";
+import StripeCheckout from "./components/StripeCheckout";
+import CheckoutSuccess from "./components/CheckoutSuccess";
 
 /* ── COLOUR TOKENS ─────────────────────────────────────────────────────────── */
 const C = {
@@ -220,7 +222,7 @@ function QVModal({p,onClose,onAdd}){
 }
 
 /* ── CART DRAWER ───────────────────────────────────────────────────────────── */
-function Cart({cart,open,onClose,onRemove,onQty}){
+function Cart({cart,open,onClose,onRemove,onQty,onCheckout}){
   const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const count=cart.reduce((s,i)=>s+i.qty,0);
   return(
@@ -268,7 +270,7 @@ function Cart({cart,open,onClose,onRemove,onQty}){
               <span style={{fontFamily:"'Outfit',sans-serif",fontWeight:600,fontSize:18,color:C.white}}>Subtotal</span>
               <span style={{fontFamily:"'Cormorant Garamond',serif",fontWeight:900,fontSize:26,color:C.green}}>${total.toFixed(2)}</span>
             </div>
-            <Btn disabled={total<40} style={{width:"100%",justifyContent:"center",fontSize:16,padding:"14px 28px"}}>Checkout <ChevronRight size={18}/></Btn>
+            <Btn disabled={total<40} onClick={onCheckout} style={{width:"100%",justifyContent:"center",fontSize:16,padding:"14px 28px"}}>Checkout <ChevronRight size={18}/></Btn>
           </div>
         )}
       </div>
@@ -961,6 +963,8 @@ export default function App(){
   const [cart,sCart]=useState([]);
   const [cartOpen,sCO]=useState(false);
   const [notif,sN]=useState(null);
+  const [checkoutPage, setCheckoutPage] = useState(false);
+  const [orderComplete, setOrderComplete] = useState(false);
 
   const addToCart=(p,qty=1)=>{
     sCart(prev=>{const ex=prev.find(i=>i.id===p.id);if(ex)return prev.map(i=>i.id===p.id?{...i,qty:i.qty+qty}:i);return[...prev,{...p,qty}];});
@@ -970,6 +974,20 @@ export default function App(){
   const updQty=(id,d)=>sCart(p=>p.map(i=>i.id===id?{...i,qty:Math.max(1,i.qty+d)}:i));
   const goShop=(c="All")=>{sIC(c);sPage("shop");window.scrollTo({top:0});};
   const goHome=()=>{sPage("home");window.scrollTo({top:0});};
+  
+  // Checkout handlers
+  const handleCheckout = () => {
+    setCartOpen(false);
+    setCheckoutPage(true);
+  };
+  const handleCheckoutSuccess = (paymentIntent) => {
+    setOrderComplete(true);
+    setCheckoutPage(false);
+    sCart([]); // Clear cart after successful payment
+  };
+  const handleCheckoutCancel = () => {
+    setCheckoutPage(false);
+  };
 
   return(
     <div>
@@ -1055,7 +1073,23 @@ export default function App(){
 
       {page==="home"&&<Home cart={cart} onAdd={addToCart} onCartOpen={()=>sCO(true)} onGoShop={goShop}/>}
       {page==="shop"&&<ShopPage cart={cart} onAdd={addToCart} onCartOpen={()=>sCO(true)} onBack={goHome} initCat={initCat}/>}
-      <Cart cart={cart} open={cartOpen} onClose={()=>sCO(false)} onRemove={remove} onQty={updQty}/>
+      <Cart cart={cart} open={cartOpen} onClose={()=>sCO(false)} onRemove={remove} onQty={updQty} onCheckout={handleCheckout}/>
+      
+      {/* Stripe Checkout Page */}
+      {checkoutPage && (
+        <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: '#111318', zIndex: 1000, overflowY: 'auto'}}>
+          <StripeCheckout 
+            cart={cart} 
+            onSuccess={handleCheckoutSuccess} 
+            onCancel={handleCheckoutCancel} 
+          />
+        </div>
+      )}
+      
+      {/* Checkout Success Page */}
+      {orderComplete && (
+        <CheckoutSuccess />
+      )}
     </div>
   );
 }
