@@ -15,8 +15,40 @@ const C = {
   bg:"rgba(0,201,107,0.3)",
 };
 
-/* ── PICSUM SEEDS that render reliably in sandboxes ────────────────────────── */
-// Using stable picsum IDs — renders without CORS issues
+/* ── LOCAL PRODUCT IMAGES ───────────────────────────────────────────────────── */
+// Mapping product seeds to local images
+const LOCAL_IMAGES = {
+  // Staples
+  "yam10": "/images/yam.jpg",
+  "plan02": "/images/plantain.jpg",
+  // Soup
+  "ogb13": "/images/ogbono.webp",
+  "cray14": "/images/cray-fish.avif",
+  "fish15": "/images/dry-fish.avif",
+  // Seasonings
+  "mag17": "/images/maggi.avif",
+  "curry19": "/images/curry.webp",
+  "thyme20": "/images/thyme.jpg",
+  // Vegetables
+  "okra21": "/images/okra.jpg",
+  "bitt22": "/images/bitterleaf.jpg",
+  "spin24": "/images/spinach.jpeg",
+  // Snacks
+  "chin25": "/images/Chin-Chin.jpg",
+  "gnut27": "/images/groundnut.jpg",
+  // Drinks
+  "milo28": "/images/milo.jpg",
+  "milk29": "/images/peak-milk.webp",
+  "malt31": "/images/Maltina.png",
+};
+
+// Default placeholder for products without local images
+const DEFAULT_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Crect fill='%2322c55e' width='400' height='400'/%3E%3Ctext fill='white' font-family='system-ui' font-size='20' x='50%25' y='50%25' text-anchor='middle' dy='.3em'%3EAfroBasket%3C/text%3E%3C/svg%3E";
+
+/* Returns local image path if available, otherwise uses placeholder */
+const getProductImage = (seed) => LOCAL_IMAGES[seed] || DEFAULT_IMG;
+
+/* Legacy function - kept for reference, products now use getProductImage() */
 const foodImg = (id, w=400, h=400) =>
   `https://picsum.photos/seed/${id}/${w}/${h}`;
 
@@ -32,7 +64,7 @@ const FLOATERS = [
   { id:"hero8", w:122, h:122, x:38, y:76, anim:2, delay:0.4 },
 ];
 
-/* Product catalogue — picsum seeds for each */
+/* Product catalogue — local images for each */
 const PRODUCTS = [
   { id:1,  name:"Yam (Tuber)",          desc:"Fresh Nigerian white yam, per tuber",       price:10.00, cat:"Staples",    seed:"yam10"   },
   { id:2,  name:"Plantain",             desc:"Ripe or unripe plantain, per piece",         price:2.50,  cat:"Staples",    seed:"plan02"  },
@@ -106,7 +138,7 @@ function PImg({ seed, alt, h=190, style={} }){
   const [err,setErr]=useState(false);
   return err
     ? <div style={{height:h,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(0,201,107,0.07)"}}><Package size={44} color={C.green} strokeWidth={1.4}/></div>
-    : <img src={foodImg(seed,400,400)} alt={alt} onError={()=>setErr(true)}
+    : <img src={getProductImage(seed)} alt={alt} onError={()=>setErr(true)}
         style={{width:"100%",height:h,objectFit:"cover",display:"block",...style}}/>;
 }
 
@@ -830,7 +862,7 @@ function Home({cart,onAdd,onCartOpen,onGoShop}){
         <div style={{maxWidth:1020,margin:"0 auto",display:"grid",gridTemplateColumns:"1fr 1fr",gap:70,alignItems:"center",position:"relative"}} className="grid-1">
           <div style={ap(abtV)}>
             <div className="about-img" style={{borderRadius:26,overflow:"hidden",height:400,position:"relative",border:`1px solid ${C.border}`}}>
-              <img src={`https://picsum.photos/seed/africafood/700/500`} alt="African food"
+              <img src="/images/hero3.jpg" alt="African food"
                 onError={e=>{e.target.style.display="none";}}
                 style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
               <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(7,7,9,.65) 0%,transparent 55%)"}}/>
